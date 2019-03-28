@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bddLiceoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AlumnoMateria">
+          <Key>
+            <PropertyRef Name="idMateria" />
+            <PropertyRef Name="idAlumno" />
+          </Key>
+          <Property Name="idMateria" Type="int" Nullable="false" />
+          <Property Name="idAlumno" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Alumnos">
+          <Key>
+            <PropertyRef Name="idAlumno" />
+          </Key>
+          <Property Name="idAlumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellido" Type="nchar" MaxLength="50" />
+          <Property Name="edad" Type="smallint" />
+          <Property Name="documento" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materias">
+          <Key>
+            <PropertyRef Name="idMateria" />
+          </Key>
+          <Property Name="idMateria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="horas" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'bddLiceo.dbo.V_AlumnoMaterias' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="V_AlumnoMaterias">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="documento" />
+            <PropertyRef Name="idAlumno" />
+            <PropertyRef Name="idMateria" />
+            <PropertyRef Name="horas" />
+            <PropertyRef Name="Expr1" />
+          </Key>
+          <Property Name="nombre" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellido" Type="nchar" MaxLength="50" />
+          <Property Name="documento" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="edad" Type="smallint" />
+          <Property Name="idAlumno" Type="int" Nullable="false" />
+          <Property Name="idMateria" Type="int" Nullable="false" />
+          <Property Name="horas" Type="int" Nullable="false" />
+          <Property Name="Expr1" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AlumnoMateria_Alumno">
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="1" />
+          <End Role="AlumnoMateria" Type="Self.AlumnoMateria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumnos">
+              <PropertyRef Name="idAlumno" />
+            </Principal>
+            <Dependent Role="AlumnoMateria">
+              <PropertyRef Name="idAlumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlumnoMateria_Materia">
+          <End Role="Materias" Type="Self.Materias" Multiplicity="1" />
+          <End Role="AlumnoMateria" Type="Self.AlumnoMateria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materias">
+              <PropertyRef Name="idMateria" />
+            </Principal>
+            <Dependent Role="AlumnoMateria">
+              <PropertyRef Name="idMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bddLiceoModelStoreContainer">
+          <EntitySet Name="AlumnoMateria" EntityType="Self.AlumnoMateria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Alumnos" EntityType="Self.Alumnos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materias" EntityType="Self.Materias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_AlumnoMaterias" EntityType="Self.V_AlumnoMaterias" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_AlumnoMaterias].[nombre] AS [nombre], 
+    [V_AlumnoMaterias].[apellido] AS [apellido], 
+    [V_AlumnoMaterias].[documento] AS [documento], 
+    [V_AlumnoMaterias].[edad] AS [edad], 
+    [V_AlumnoMaterias].[idAlumno] AS [idAlumno], 
+    [V_AlumnoMaterias].[idMateria] AS [idMateria], 
+    [V_AlumnoMaterias].[horas] AS [horas], 
+    [V_AlumnoMaterias].[Expr1] AS [Expr1]
+    FROM [dbo].[V_AlumnoMaterias] AS [V_AlumnoMaterias]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AlumnoMateria_Alumno" Association="Self.FK_AlumnoMateria_Alumno">
+            <End Role="Alumnos" EntitySet="Alumnos" />
+            <End Role="AlumnoMateria" EntitySet="AlumnoMateria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlumnoMateria_Materia" Association="Self.FK_AlumnoMateria_Materia">
+            <End Role="Materias" EntitySet="Materias" />
+            <End Role="AlumnoMateria" EntitySet="AlumnoMateria" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bddLiceoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alumnos">
+          <Key>
+            <PropertyRef Name="idAlumno" />
+          </Key>
+          <Property Name="idAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="edad" Type="Int16" />
+          <Property Name="documento" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Materias" Relationship="Self.AlumnoMateria" FromRole="Alumnos" ToRole="Materias" />
+        </EntityType>
+        <EntityType Name="Materias">
+          <Key>
+            <PropertyRef Name="idMateria" />
+          </Key>
+          <Property Name="idMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="horas" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Alumnos" Relationship="Self.AlumnoMateria" FromRole="Materias" ToRole="Alumnos" />
+        </EntityType>
+        <EntityType Name="V_AlumnoMaterias">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="documento" />
+            <PropertyRef Name="idAlumno" />
+            <PropertyRef Name="idMateria" />
+            <PropertyRef Name="horas" />
+            <PropertyRef Name="Expr1" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="documento" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="edad" Type="Int16" />
+          <Property Name="idAlumno" Type="Int32" Nullable="false" />
+          <Property Name="idMateria" Type="Int32" Nullable="false" />
+          <Property Name="horas" Type="Int32" Nullable="false" />
+          <Property Name="Expr1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="AlumnoMateria">
+          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="*" />
+          <End Role="Materias" Type="Self.Materias" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="bddLiceoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alumnos" EntityType="Self.Alumnos" />
+          <EntitySet Name="Materias" EntityType="Self.Materias" />
+          <EntitySet Name="V_AlumnoMaterias" EntityType="Self.V_AlumnoMaterias" />
+          <AssociationSet Name="AlumnoMateria" Association="Self.AlumnoMateria">
+            <End Role="Alumnos" EntitySet="Alumnos" />
+            <End Role="Materias" EntitySet="Materias" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bddLiceoModelStoreContainer" CdmEntityContainer="bddLiceoEntities">
+          <EntitySetMapping Name="Alumnos">
+            <EntityTypeMapping TypeName="bddLiceoModel.Alumnos">
+              <MappingFragment StoreEntitySet="Alumnos">
+                <ScalarProperty Name="idAlumno" ColumnName="idAlumno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materias">
+            <EntityTypeMapping TypeName="bddLiceoModel.Materias">
+              <MappingFragment StoreEntitySet="Materias">
+                <ScalarProperty Name="idMateria" ColumnName="idMateria" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="horas" ColumnName="horas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_AlumnoMaterias">
+            <EntityTypeMapping TypeName="bddLiceoModel.V_AlumnoMaterias">
+              <MappingFragment StoreEntitySet="V_AlumnoMaterias">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="idAlumno" ColumnName="idAlumno" />
+                <ScalarProperty Name="idMateria" ColumnName="idMateria" />
+                <ScalarProperty Name="horas" ColumnName="horas" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AlumnoMateria" TypeName="bddLiceoModel.AlumnoMateria" StoreEntitySet="AlumnoMateria">
+            <EndProperty Name="Alumnos">
+              <ScalarProperty Name="idAlumno" ColumnName="idAlumno" />
+            </EndProperty>
+            <EndProperty Name="Materias">
+              <ScalarProperty Name="idMateria" ColumnName="idMateria" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

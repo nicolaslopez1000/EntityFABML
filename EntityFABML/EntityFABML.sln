@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{6CC8FCC2-5E3C-48B2-BBB4-65115C1C82B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Presentación", "0.Presentación", "{89E1DCFD-DCAB-46AF-96BC-71D45775D804}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.DataAccess", "4.DataAccess", "{7B65B936-12B2-4695-ACA4-8D724B6164D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.ServiceLayer", "1.ServiceLayer", "{D2D6D684-9281-45AB-BB1C-9BE5F18F9888}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Business", "2.Business", "{9D7F77DD-B873-4C34-BB0F-AEF6F4904DB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Common", "4.Common", "{C0A75E0C-D7A2-4C82-BC8B-CE521FB4763A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.DataAccess", "3.DataAccess", "{D7031D4B-CD24-40A9-8FC3-F4B002DBCF41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "ClassLibrary1\DataAccess.csproj", "{22680C6C-B415-4DAD-AB0F-6DA150E6874F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CC8FCC2-5E3C-48B2-BBB4-65115C1C82B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC8FCC2-5E3C-48B2-BBB4-65115C1C82B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC8FCC2-5E3C-48B2-BBB4-65115C1C82B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CC8FCC2-5E3C-48B2-BBB4-65115C1C82B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22680C6C-B415-4DAD-AB0F-6DA150E6874F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22680C6C-B415-4DAD-AB0F-6DA150E6874F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22680C6C-B415-4DAD-AB0F-6DA150E6874F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22680C6C-B415-4DAD-AB0F-6DA150E6874F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6CC8FCC2-5E3C-48B2-BBB4-65115C1C82B6} = {89E1DCFD-DCAB-46AF-96BC-71D45775D804}
+		{22680C6C-B415-4DAD-AB0F-6DA150E6874F} = {D7031D4B-CD24-40A9-8FC3-F4B002DBCF41}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0CF657FF-4914-4152-99F3-83B9C4689133}
+	EndGlobalSection
+EndGlobal
