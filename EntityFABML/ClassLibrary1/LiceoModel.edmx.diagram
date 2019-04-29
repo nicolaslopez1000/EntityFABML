@@ -5,10 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="232a2defaf774a43bba7dcf5ecef3dd8" Name="Diagram1">
-        <EntityTypeShape EntityType="bddLiceoModel.Alumnos" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="bddLiceoModel.Materias" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="bddLiceoModel.V_AlumnoMaterias" Width="1.5" PointX="5" PointY="0.5" IsExpanded="true" FillColor="255, 128, 0" />
-        <AssociationConnector Association="bddLiceoModel.AlumnoMateria" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="bddLiceoModel.Alumnos" Width="1.5" PointX="0.75" PointY="0.875" />
+        <AssociationConnector Association="bddLiceoModel.AlumnoMateria" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

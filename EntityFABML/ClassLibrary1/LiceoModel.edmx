@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="bddLiceoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="bddLiceoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AlumnoMateria">
           <Key>
             <PropertyRef Name="idMateria" />
@@ -22,6 +22,7 @@
           <Property Name="apellido" Type="nchar" MaxLength="50" />
           <Property Name="edad" Type="smallint" />
           <Property Name="documento" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Materias">
           <Key>
@@ -100,22 +101,10 @@ advertencia 6002: La tabla o vista 'bddLiceo.dbo.V_AlumnoMaterias' no tiene defi
             <End Role="AlumnoMateria" EntitySet="AlumnoMateria" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bddLiceoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Alumnos">
-          <Key>
-            <PropertyRef Name="idAlumno" />
-          </Key>
-          <Property Name="idAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="edad" Type="Int16" />
-          <Property Name="documento" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Materias" Relationship="Self.AlumnoMateria" FromRole="Alumnos" ToRole="Materias" />
-        </EntityType>
         <EntityType Name="Materias">
           <Key>
             <PropertyRef Name="idMateria" />
@@ -123,7 +112,7 @@ advertencia 6002: La tabla o vista 'bddLiceo.dbo.V_AlumnoMaterias' no tiene defi
           <Property Name="idMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="horas" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Alumnos" Relationship="Self.AlumnoMateria" FromRole="Materias" ToRole="Alumnos" />
+          <NavigationProperty Name="Alumnos" Relationship="bddLiceoModel.AlumnoMateria" FromRole="Materias" ToRole="Alumnos" />
         </EntityType>
         <EntityType Name="V_AlumnoMaterias">
           <Key>
@@ -143,36 +132,37 @@ advertencia 6002: La tabla o vista 'bddLiceo.dbo.V_AlumnoMaterias' no tiene defi
           <Property Name="horas" Type="Int32" Nullable="false" />
           <Property Name="Expr1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
         </EntityType>
-        <Association Name="AlumnoMateria">
-          <End Role="Alumnos" Type="Self.Alumnos" Multiplicity="*" />
-          <End Role="Materias" Type="Self.Materias" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="bddLiceoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Alumnos" EntityType="Self.Alumnos" />
           <EntitySet Name="Materias" EntityType="Self.Materias" />
           <EntitySet Name="V_AlumnoMaterias" EntityType="Self.V_AlumnoMaterias" />
-          <AssociationSet Name="AlumnoMateria" Association="Self.AlumnoMateria">
+          <EntitySet Name="Alumnos" EntityType="bddLiceoModel.Alumnos" />
+          <AssociationSet Name="AlumnoMateria" Association="bddLiceoModel.AlumnoMateria">
             <End Role="Alumnos" EntitySet="Alumnos" />
             <End Role="Materias" EntitySet="Materias" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Alumnos">
+          <Key>
+            <PropertyRef Name="idAlumno" />
+          </Key>
+          <Property Name="idAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="edad" Type="Int16" />
+          <Property Name="documento" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Materias" Relationship="bddLiceoModel.AlumnoMateria" FromRole="Alumnos" ToRole="Materias" />
+        </EntityType>
+        <Association Name="AlumnoMateria">
+          <End Type="bddLiceoModel.Alumnos" Role="Alumnos" Multiplicity="*" />
+          <End Type="bddLiceoModel.Materias" Role="Materias" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="bddLiceoModelStoreContainer" CdmEntityContainer="bddLiceoEntities">
-          <EntitySetMapping Name="Alumnos">
-            <EntityTypeMapping TypeName="bddLiceoModel.Alumnos">
-              <MappingFragment StoreEntitySet="Alumnos">
-                <ScalarProperty Name="idAlumno" ColumnName="idAlumno" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido" ColumnName="apellido" />
-                <ScalarProperty Name="edad" ColumnName="edad" />
-                <ScalarProperty Name="documento" ColumnName="documento" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Materias">
             <EntityTypeMapping TypeName="bddLiceoModel.Materias">
               <MappingFragment StoreEntitySet="Materias">
@@ -196,12 +186,24 @@ advertencia 6002: La tabla o vista 'bddLiceo.dbo.V_AlumnoMaterias' no tiene defi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Alumnos">
+            <EntityTypeMapping TypeName="bddLiceoModel.Alumnos">
+              <MappingFragment StoreEntitySet="Alumnos">
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idAlumno" ColumnName="idAlumno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="AlumnoMateria" TypeName="bddLiceoModel.AlumnoMateria" StoreEntitySet="AlumnoMateria">
-            <EndProperty Name="Alumnos">
-              <ScalarProperty Name="idAlumno" ColumnName="idAlumno" />
-            </EndProperty>
             <EndProperty Name="Materias">
               <ScalarProperty Name="idMateria" ColumnName="idMateria" />
+            </EndProperty>
+            <EndProperty Name="Alumnos">
+              <ScalarProperty Name="idAlumno" ColumnName="idAlumno" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
